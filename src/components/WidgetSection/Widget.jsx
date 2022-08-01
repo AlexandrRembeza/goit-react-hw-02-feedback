@@ -12,42 +12,17 @@ export class Widget extends Component {
   };
 
   handleIncrement = e => {
-    e.stopPropagation();
-
     if (e.target.nodeName !== 'BUTTON') {
       return;
     }
 
-    const dataAttribute = e.target.dataset.action;
+    const { action } = e.target.dataset;
 
-    switch (dataAttribute) {
-      case 'goodReview':
-        this.setState(prevState => {
-          return {
-            good: prevState.good + 1,
-          };
-        });
-        return;
-
-      case 'neutralReview':
-        this.setState(prevState => {
-          return {
-            neutral: prevState.neutral + 1,
-          };
-        });
-        return;
-
-      case 'badReview':
-        this.setState(prevState => {
-          return {
-            bad: prevState.bad + 1,
-          };
-        });
-        return;
-
-      default:
-        return;
-    }
+    this.setState(prevState => {
+      return {
+        [action]: prevState[action] + 1,
+      };
+    });
   };
 
   countTotalFeedback = () => {
